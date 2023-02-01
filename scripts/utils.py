@@ -7,6 +7,11 @@ def loadUsernameDirectory(report):
             studentIDs[username] = studentID
     return studentIDs
 
+def extractCommitter(commit):
+    # GitHub doesn't always give us the login of a commit, so sometimes we have to hack it out of the email address !
+    if ("author" in commit) and (commit["author"] is not None) and ("login" in commit["author"]): return commit["author"]["login"]
+    else: return commit["commit"]["committer"]["email"].split("@")[0]
+
 def safelyIncrement(report, featureName, amount, username, studentIDs, repoName):
     # If we know who the student is, add one to their tally for this feature
     if username in studentIDs:

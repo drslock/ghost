@@ -12,8 +12,7 @@ for repository in report["repositories"]:
             comment = commit["commit"]["message"]
             # Branch merges are't really "proper" code commits - count everything except those
             if "Merge pull request #" not in comment:
-                if "login" in commit["committer"]:
-                    username = commit["committer"]["login"]
-                    utils.safelyIncrement(report, "commits-to-main", 1, username, studentIDs, repository)
+                username = utils.extractCommitter(commit)
+                utils.safelyIncrement(report, "commits-to-main", 1, username, studentIDs, repository)
 
 print(json.dumps(report, indent=4))

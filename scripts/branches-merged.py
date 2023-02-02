@@ -12,7 +12,9 @@ for repository in report["repositories"]:
             comment = commit["commit"]["message"]
             if "Merge pull request #" in comment:
                 # GitHub doesn't always give us the login of a commit, so we have to hack it out of the email address !
-                username = commit["commit"]["author"]["email"].split("+")[1].split("@")[0]
+                email = commit["commit"]["author"]["email"]
+                if "+" in email: username = email.split("+")[1].split("@")[0]
+                else: username = email.split("@")[0]
                 utils.safelyIncrement(report, "branches-merged", 1, username, studentIDs, repository)
 
 print(json.dumps(report, indent=4))

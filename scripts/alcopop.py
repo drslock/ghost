@@ -1,7 +1,5 @@
 import sys, json, utils
 
-import sys, json, utils
-
 report = json.load(sys.stdin)
 studentIDs = utils.loadUsernameDirectory(report)
 for studentID in report["students"]:

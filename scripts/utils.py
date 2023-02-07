@@ -13,17 +13,27 @@ def extractCommitter(commit):
     else: return commit["commit"]["committer"]["email"].split("@")[0]
 
 def safelyIncrement(report, featureName, amount, username, studentIDs, repoName):
-    # If we know who the student is, add one to their tally for this feature
-    if username in studentIDs:
-        id = studentIDs[username]
-        studentRecord = report["students"][id]
+    studentRecord = getStudentRecordByUsername(report, username, studentIDs, repoName)
+    if studentRecord is not None:
         if featureName not in studentRecord: studentRecord[featureName] = 0
         studentRecord[featureName] += amount
+
+def safelyAppend(report, featureName, amount, username, studentIDs, repoName):
+    studentRecord = getStudentRecordByUsername(report, username, studentIDs, repoName)
+    if studentRecord is not None:
+        if featureName not in studentRecord: studentRecord[featureName] = ""
+        studentRecord[featureName] += amount
+
+def getStudentRecordByUsername(report, username, studentIDs, repoName):
+    if username in studentIDs:
+        id = studentIDs[username]
+        return report["students"][id]
     # If we DON'T know who the student is, record the fact in the report
     elif ("github-actions" not in username) and ("web-flow" not in username):
         if "spectres" not in report: report["spectres"] = []
         userPlusRepoName = username + "@" + repoName
         if(userPlusRepoName not in report["spectres"]): report["spectres"].append(userPlusRepoName)
+        return None
 
 def getAllPagesForQuery(query):
     allResults = []

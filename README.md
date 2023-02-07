@@ -9,7 +9,8 @@ into the work performed by each student.
 
 - `issues-assigned` Reports the number of issues that have been _assigned_ to each student
 - `issues-completed` Reports the number of issues that have been _completed_ by each student
-- `commits-to-main` Lists the number of commits made by students _that have reached the master branch_
+- `commits-per-week` Lists the number of commits students have made each week _that have reached the master branch_
+- `commits-to-main` The total number of commits made by students _that have reached the master branch_
 - `pull-requests-created` Extracts the number of pull requests made by each student
 - `branches-merged` Reports the number of branches merged into the main/master branch by a student
 - `aggregate-loc` Extracts the total _increase_ in number of lines of code from all commits by a student

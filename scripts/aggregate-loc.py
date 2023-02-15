@@ -9,18 +9,17 @@ for repository in report["repositories"]:
         # Check that it's not an already seen commit (they get duplicated in different branches !)
         if commit["url"] not in alreadySeenCommits:
             alreadySeenCommits.append(commit["url"])
-            comment = commit["commit"]["message"]
+            username = utils.extractCommitter(commit)
+            aggregateLOC = 0
             if "Merge pull request #" not in commit["commit"]["message"]:
-                username = utils.extractCommitter(commit)
-                aggregateLOC = 0
                 commitDetails = utils.sendGetRequest(commit["url"])
                 # Sometimes the details returned is just a string (rather than a JSON document)
                 if type(commitDetails) != str:
                     for change in commitDetails["files"]:
                         aggregateLOC += change["additions"]
                         aggregateLOC -= change["deletions"]
-                # Only count commits with a sensible number of lines of code (to stop "code dumps" or "code purges" skewing the data)
-                if (aggregateLOC > -500) and (aggregateLOC < 500):
-                    utils.safelyIncrement(report, "aggregate-loc", aggregateLOC, username, studentIDs, repository)
+            # Only count commits with a sensible number of lines of code (to stop "code dumps" or "code purges" skewing the data)
+            if (aggregateLOC > -500) and (aggregateLOC < 500):
+                utils.safelyIncrement(report, "aggregate-loc", aggregateLOC, username, studentIDs, repository)
 
 print(json.dumps(report, indent=4))

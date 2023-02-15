@@ -13,8 +13,17 @@ into the work performed by each student.
 - `commits-to-main` The total number of commits made by students _that have reached the master branch_
 - `pull-requests-created` Extracts the number of pull requests made by each student
 - `branches-merged` Reports the number of branches merged into the main/master branch by a student
+- `tests-contributed` Report the number of lines of test code contributed by a student
 - `aggregate-loc` Extracts the total _increase_ in number of lines of code from all commits by a student
-- `alcopop` Calculates "**A**verage **L**ines of **Co**de **P**er **O**rchestrated **P**ush" (i.e. `aggregate-loc/commits-to-main`)
+- `alcopop` Calculates "**A**verage **L**ines of **Co**de **P**er **O**rchestrated **P**ush" (i.e. `aggregate-loc`/`commits-to-main`)
+
+The `tests-contributed` script will count the number of lines in any file containing "test" in the pathname.
+An optional list of test file extensions can be specified when running this script in order to
+filter out any non-test file types. For example:
+```
+python tests-contributed.py .java .py
+```
+will only count the lines of code added to `.java` and `.py` files (with "test" in the pathname).
 
 Note that the `alcopop` script requires both the `commits-to-main` and `aggregate-loc` scripts
 to have previously been run (so that the required data is available to calculate the average).
@@ -52,6 +61,12 @@ An example JSON report document is shown below:
     }
 }
 ```
+
+At then end of the JSON report document, there may appear an additional `spectres` section.
+This contains the usernames of any unknown contributors encountered during the analysis of the GitHub
+repositories (i.e. usernames not listed in the `students` section of the report). It is worth
+spending some time reviewing these unknown usernames to see if it is worth updating the student
+entries to include them (otherwise students may not get the full credit for their contributions).
 
 ## Usage
 

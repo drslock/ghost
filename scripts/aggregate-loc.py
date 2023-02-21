@@ -6,7 +6,7 @@ studentIDs = utils.loadUsernameDirectory(report)
 alreadySeenCommits = []
 for repository in report["repositories"]:
     # Sleep between each repo, so that we don't over-use the API and get throttled
-    sleep(120)
+    sleep(60)
     commits = utils.getAllPagesForQuery("/repos/" + repository + "/commits?")
     for commit in commits:
         # Check that it's not an already seen commit (they get duplicated in different branches !)

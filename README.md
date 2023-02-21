@@ -12,9 +12,9 @@ into the work performed by each student.
 - `commits-per-week` Lists the number of commits students have made each week _that have reached the master branch_
 - `commits-to-main` The total number of commits made by students _that have reached the master branch_
 - `pull-requests-created` Extracts the number of pull requests made by each student
-- `branches-merged` Reports the number of branches merged into the main/master branch by a student
-- `tests-contributed` Report the number of lines of test code contributed by a student
-- `aggregate-loc` Extracts the total _increase_ in number of lines of code from all commits by a student
+- `branches-merged` Reports the number of branches merged into the main/master branch by students
+- `tests-contributed` Report the number of lines of test code contributed by students
+- `aggregate-loc` Extracts the total _increase_ in number of lines of code from all commits by students
 - `alcopop` Calculates "**A**verage **L**ines of **Co**de **P**er **O**rchestrated **P**ush" (i.e. `aggregate-loc`/`commits-to-main`)
 
 The `tests-contributed` script will count the number of lines in any file containing "test" in the pathname.
@@ -87,8 +87,14 @@ Alternatively, any number of scripts can be chained together using pipes, for ex
 cat students.json | python issues-assigned.py | python commits-to-main.py  > output.json
 ```
 
-## Document Format Conversion
+## Document Formatting and Filtering
 
 In addition to the core data analysis scripts, there are two document format conversion scripts:
 - `csv2json` Converts a CSV spreadsheet (containing just Student ID, real name and GitHub usernames) in an initial JSON report
 - `json2csv` Converts a JSON report already populated with data into a CSV spreadsheet
+
+There are also a number of filtering scripts that can be used to remove unwanted material from the report:
+- `just-specified-students` - Produces a report containing only students specified (student IDs provided as arguments)
+- `just-populated-students` - Filters out any students without any data in their report
+- `just-specified-repositories` - Produces a report containing only repositories specified (repo name keywords provided as arguments)
+- `remove-usernames` - Removes the `usernames` element of student entries (to make the report shorter and tidier)

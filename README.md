@@ -44,7 +44,7 @@ In order to run the scripts, you will need to create a personal access token on 
 The generated access token should be inserted into a file called `credentials.secret` and stored
 in the root folder of GHOST.
 
-## Report document format
+## Report Document Format
 
 The JSON report document contains details of the organisation and repository names,
 as well as details regarding each student (UoB student IDs, students real names and GitHub usernames).
@@ -61,8 +61,8 @@ An example JSON report document is shown below:
     }
 }
 ```
-
-At then end of the JSON report document, there may appear an additional `spectres` section.
+Note that it is not unusual for students to have more than one GitHub username.
+Near the end of the JSON report document, there may appear an additional `spectres` section.
 This contains the usernames of any unknown contributors encountered during the analysis of the GitHub
 repositories (i.e. usernames not listed in the `students` section of the report). It is worth
 spending some time reviewing these unknown usernames to see if it is worth updating the student
@@ -87,14 +87,14 @@ Alternatively, any number of scripts can be chained together using pipes, for ex
 cat students.json | python issues-assigned.py | python commits-to-main.py  > output.json
 ```
 
-## Document Formatting and Filtering
+## Conversion and Filtering
 
 In addition to the core data analysis scripts, there are two document format conversion scripts:
-- `csv2json` Converts a CSV spreadsheet (containing just Student ID, real name and GitHub usernames) in an initial JSON report
-- `json2csv` Converts a JSON report already populated with data into a CSV spreadsheet
+- `csv2json` Converts a CSV spreadsheet (containing Student ID, real name and GitHub usernames) into an initial JSON report
+- `json2csv` Converts a JSON report already populated with data into a CSV spreadsheet (for import into other tools)
 
 There are also a number of filtering scripts that can be used to remove unwanted material from the report:
 - `just-specified-students` - Produces a report containing only students specified (student IDs provided as arguments)
 - `just-populated-students` - Filters out any students without any data in their report
 - `just-specified-repositories` - Produces a report containing only repositories specified (repo name keywords provided as arguments)
-- `remove-usernames` - Removes the `usernames` element of student entries (to make the report shorter and tidier)
+- `remove-usernames` - Removes the "usernames" element of student entries (to make the report shorter and tidier)
